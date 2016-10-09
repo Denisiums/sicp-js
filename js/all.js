@@ -93,10 +93,54 @@ function aPlusAbsB2 (a, b) {
 }
 console.log('1.4: ', aPlusAbsB(3, -7), aPlusAbsB(3, 7), aPlusAbsB2(3, -7));
 
+//1.5
+function p () {
+	return p();
+}
 
+function test (x, y) {
+	return (x === 0) ? 0 : y;
+}
 
+// console.log(test (0, p())); // => infinite recursuion in applicative order
+/////////////////////////////////////////////
 
+//1.1.7 Newton binoma
 
+function sqrtIter (guess, x) {
+	return (goodEnough(guess, x)) ? guess : sqrtIter(improve(guess, x), x);
+}
+
+//readable
+function sqrtIter2 (guess, x) {
+	if (goodEnough(guess, x)) {
+		return guess;
+	}
+	return sqrtIter2(improve(guess, x), x)
+}
+
+function improve(guess, x) {
+	return average(guess, (x / guess));
+}
+
+function average(x, y) {
+	return (x + y) / 2;
+}
+
+function goodEnough (guess, x) {
+	return (abs(square(guess) - x) < 0.00001);
+}
+
+//guess 1
+function sqrt(x) {
+	return sqrtIter(1, x);
+}
+
+function sqrt2(x) {
+	return sqrtIter(1, x);
+}
+
+console.log('1.1.7 sqrt 2', sqrt(2), sqrt2(2));
 
 
 

@@ -162,8 +162,6 @@ function root3(x) {
 	return root3Iter(1, x);
 }
 
-
-
 function root3Iter (guess, x) {
 	let i = 0;
 	function inner(guess, x) {
@@ -187,12 +185,120 @@ function goodEnoughRoot3(guess, x) {
 
 console.log('root3 from 28: ', root3(28));
 
+//here we should move outer functions into the main function and impure our functions, but i'm lazy.
 
+// 1.2 procedures and spawned processes
 
+function recursiveFactorial(n) {
+	if (typeof n === 'number' && n >= 0) {
+		if (n === 0 || n === 1) return 1;
+		return n * recursiveFactorial(n - 1);
+	} else {
+		throw new Error('RecursiveFactorial parameter should be a number and more or equal zero');
+	}
+}
 
+console.log('recursiveFactorial(6): ', recursiveFactorial(6));
 
+function tailRecursionFactorial(n) {
+	if (typeof n === 'number' && n >= 0) {
+		return factIter(1, 1, n);
+	} else {
+		throw new Error('RecursiveFactorial parameter should be a number and more or equal zero');
+	}
 
+	function factIter(result, counter, maxCount) {
+		if (counter > maxCount) return result;
+		return factIter(result * counter, counter + 1, maxCount);
+	}
+}
 
+console.log('tailRecursionFactorial(6)', tailRecursionFactorial(6));
 
+function cycleFactorial(n) {
+	//no argument checking more for this excersizes
+	let result = 1;
+	for (let i = 1; i <= n; i++ ) {
+		result *= i; //result = result * i;
+	}
+	return result;
+}
 
+console.log('cycleFactorial(6)', cycleFactorial(6));
+
+// 1.9 (+ 4 5)
+
+/*
+			a) - recursive
+(+ 4 5)
+(inc (+ (dec 4) 5))
+(inc (+ 3 5))
+(inc (inc (+ 2 5)))
+(inc (inc (inc (+ 1 5))))
+(inc (inc (inc ( inc (+ 0 5)))))
+(inc (inc (inc ( inc 5))))
+(inc (inc (inc 6))))
+(inc (inc 7))
+(inc 8)
+9
+
+			b) - iterative
+(+ 4 5)
+(+ (dec 4) (inc 5))
+(+ 3 6)
+(+ 2 7)
+(+ 1 8)
+(+ 0 9)
+9
+*/
+
+// 1.10 Akkermans function
+
+/*
+(A 1 10)
+(A (- x 1) (A x (- y 1)))
+(A (- 1 1) (A 1 (- 10 1)))
+(A 0 (A 1 9))
+(A 0 (A 0 (A 1 8)))
+(A 0 (A 0 (A 0 (A 1 7)))
+(A 0 (A 0 (A 0 (A 0 (A 1 6)))
+(A 0 (A 0 (A 0 (A 0 (A 0 (A 1 5)))
+(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 4)))
+(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 3)))
+(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 2)))
+(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 1))) //lazy parenthesis
+(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 2))
+(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 4)
+(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 8)
+(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 16)
+(A 0 (A 0 (A 0 (A 0 (A 0 32)
+(A 0 (A 0 (A 0 (A 0 64)
+(A 0 (A 0 (A 0 128)
+(A 0 (A 0 256)
+(A 0 512)
+1024
+
+(A 0 n) === 2n
+(A 1 n) === 2^n, n>0
+
+(A 2 4)
+(A 1 (A 2 3)))
+(A 1 (A 1 (A 2 2)))
+(A 1 (A 1 (A 1 (A 2 1)))
+(A 1 (A 1 (A 1 2)) === 2^2
+(A 1 (A 1 4) === 2^4
+(A 1 16)
+2^16
+
+(A 2 n) === 2^(n^n)
+
+(A 3 3)
+(A 2 (A 3 2))
+(A 2 (A 2 (A 3 1))
+(A 2 (A 2 2))
+(A 2 2^2^2)
+2^(2^2^2)
+
+(A 3 n) === 2^(n^n^n)
+*/
 

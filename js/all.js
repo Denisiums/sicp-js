@@ -302,3 +302,35 @@ console.log('cycleFactorial(6)', cycleFactorial(6));
 (A 3 n) === 2^(n^n^n)
 */
 
+//1.2.2 Tree structure
+
+function fibR(n) {
+	if (n === 0 || n === 1) return n;
+	return fibR(n - 1) + fibR(n - 2);
+}
+
+console.log('fibR(10)', fibR(10));
+
+function fibT(n) {
+	function fibIter(a, b, counter) {
+		if (counter === 0) return b;
+		return fibIter(a + b, a, counter - 1);
+	}
+	return fibIter(1, 0, n);
+}
+
+console.log('fibT(10)', fibT(10));
+
+function fibC(n) {
+	let a = 1,
+		b = 0;
+	for (let i = n; i > 0; i--) {
+		let oldA = a;
+		a = a + b;
+		b = oldA;
+	}
+	return b;
+
+}
+
+console.log('fibC(10): ', fibC(10));

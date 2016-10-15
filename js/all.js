@@ -1,4 +1,5 @@
 console.log('Hi!');
+//I'm lazy to create unique names for every function (for excersizes). Sorry.
 
 //1.1.4 Define
 function square(x) {
@@ -155,7 +156,36 @@ function goodEnough2(guess, x) {
 
 //1.8 sqrt3:
 
+/// (x/y^2 + 2y)3 - improve^3
 
+function root3(x) {
+	return root3Iter(1, x);
+}
+
+
+
+function root3Iter (guess, x) {
+	let i = 0;
+	function inner(guess, x) {
+		i++;
+		if (goodEnoughRoot3(guess, x) || i > 300) {
+			console.log('root3Iter cycles: ', i);
+			return guess;
+		}
+		return inner(improveRoot3(guess, x), x);
+	}
+	return inner(guess, x);
+}
+
+function improveRoot3(guess, x) {
+	return ((x / Math.pow(guess, 2) + 2 * guess) / 3);
+}
+
+function goodEnoughRoot3(guess, x) {
+	return ((abs(guess/improveRoot3(guess, x) - 1)) < 0.00001);
+}
+
+console.log('root3 from 28: ', root3(28));
 
 
 

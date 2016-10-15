@@ -113,10 +113,16 @@ function sqrtIter (guess, x) {
 
 //readable
 function sqrtIter2 (guess, x) {
-	if (goodEnough(guess, x)) {
-		return guess;
+	let i = 0;
+	function inner(guess, x) {
+		i++;
+		if (goodEnough2(guess, x)) {
+			console.log('sqrtIter2 cycles: ', i);
+			return guess;
+		}
+		return inner(improve(guess, x), x);
 	}
-	return sqrtIter2(improve(guess, x), x)
+	return inner(guess, x);
 }
 
 function improve(guess, x) {
@@ -131,16 +137,24 @@ function goodEnough (guess, x) {
 	return (abs(square(guess) - x) < 0.00001);
 }
 
-//guess 1
+	//guess 1
 function sqrt(x) {
 	return sqrtIter(1, x);
 }
 
 function sqrt2(x) {
-	return sqrtIter(1, x);
+	return sqrtIter2(1, x);
 }
 
-console.log('1.1.7 sqrt 2', sqrt(2), sqrt2(2));
+console.log('1.1.7 sqrt 0.00000001: v1-v2: ', sqrt(0.00000001), sqrt2(0.00000001));
+
+//1.7
+function goodEnough2(guess, x) {
+	return ((abs(guess/improve(guess, x) - 1)) < 0.00001);
+}
+
+//1.8 sqrt3:
+
 
 
 

@@ -11,7 +11,7 @@ function ex1_11_recursive(n) {
 function ex1_11_iterate(n) {
 	if (typeof n !== 'number') throw(new Error('NaN'));
 
-
+	//if you save map level above, you can user previous results without calculation
 	let map = new Map();
 	for (let i = 0; i <= n; i++) {
 		if (i < 3) {
